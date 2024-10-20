@@ -1,0 +1,7 @@
+
+pip
+autopep8
+
+flask
+pyngrok==5.1.0
+termcolor==2.3.0

